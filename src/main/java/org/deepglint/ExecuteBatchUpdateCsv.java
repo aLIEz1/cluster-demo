@@ -14,13 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * 批量更新csv文件
+ * 批量更新csv文件,后聚类处理脚本
  *
  * @author ZhangFuQi
  * @date 2021/9/10 11:34
  */
 public class ExecuteBatchUpdateCsv {
-    public static final String FILE_INPUT_PATH = "C:\\Users\\Administrator\\IdeaProjects\\cluster-demo\\src\\main\\resources\\output.csv";
 
     public static void execute() throws Exception {
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
@@ -39,12 +38,12 @@ public class ExecuteBatchUpdateCsv {
             public Tuple3<String, String, String> map(Person value) throws Exception {
                 return new Tuple3<>(value.getObjectId(), value.getPersonId(), value.getImgUrl());
             }
-        }).output(new MyCsvOutputFormat<>(new Path(FILE_INPUT_PATH)));
+        }).output(new MyCsvOutputFormat<>(new Path(Main.OUTPUT_FILE_PATH)));
         env.execute();
     }
 
     private static DataSet<Person> readCsv(ExecutionEnvironment env) {
-        return env.readCsvFile(FILE_INPUT_PATH)
+        return env.readCsvFile(Main.OUTPUT_FILE_PATH)
                 .fieldDelimiter(",")
                 .includeFields(true, true, true, true)
                 .pojoType(Person.class, "objectId", "personId", "imgUrl", "feature");

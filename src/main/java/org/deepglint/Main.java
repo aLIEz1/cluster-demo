@@ -15,6 +15,7 @@ import org.deepglint.util.MyCsvOutputFormat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -24,8 +25,8 @@ import java.util.UUID;
  * @date 2021/9/6 16:50
  */
 public class Main {
-    public static final String FILE_PATH = "C:\\Users\\Administrator\\IdeaProjects\\cluster-demo\\src\\main\\resources\\input.csv";
-    public static final String OUTPUT_FILE_PATH = "C:\\Users\\Administrator\\IdeaProjects\\cluster-demo\\src\\main\\resources\\output.csv";
+    public static final String FILE_PATH = Objects.requireNonNull(Main.class.getClassLoader().getResource("input.csv")).getPath();
+    public static final String OUTPUT_FILE_PATH = Objects.requireNonNull(Main.class.getClassLoader().getResource("output.csv")).getPath();;
 
     public static void main(String[] args) throws Exception {
         final ParameterTool params = ParameterTool.fromArgs(args);
